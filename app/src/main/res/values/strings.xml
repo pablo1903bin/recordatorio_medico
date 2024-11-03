@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Recordatorio Medico</string>
+    <string name="navigation_drawer_open">Abrir menu</string>
+    <string name="navigation_drawer_close">Cerrar menu</string>
+    <string name="nav_header_title">Pablo Rosas</string>
+    <string name="nav_header_subtitle">pablo@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuraciones</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Galeria</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="programar_notificacion">Programar Notificación</string>
+    <string name="ir_flutter_fragment">Flutter Fragment</string>
+
+</resources>
