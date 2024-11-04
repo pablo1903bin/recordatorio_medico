@@ -1,5 +1,7 @@
 package com.pablo.recordatorio.medico.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -43,6 +45,7 @@ public class HomeViewModel extends ViewModel {
             public void onResponse(Call<RecordatorioResponse> call, Response<RecordatorioResponse> response) {
                 isLoading.setValue(false); // Indica que la carga terminó
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.i("Response Data Rec", response.body().toString());
                     recordatorios.setValue(response.body()); // Actualiza los datos
                 } else {
                     // Maneja el caso de error en la respuesta (puedes agregar un LiveData de errores si lo deseas)

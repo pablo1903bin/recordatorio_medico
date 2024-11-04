@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pablo.recordatorio.medico.NotificationScheduler;
@@ -39,51 +42,62 @@ public class HomeFragment extends Fragment {
     private Handler relojHandler = new Handler();
     private Runnable actualizarRelojRunnable;
     private Calendar calendar;
+    private ProgressBar progressBar;
     private FragmentHomeBinding binding;
+    private TextView textRecordatorios;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Configura el ViewModel
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        textReloj = root.findViewById(R.id.text_reloj);
+
+        // Inicializar el objeto Calendar
         calendar = Calendar.getInstance();
 
+        // Inicializar los elementos de la UI
+        textReloj = root.findViewById(R.id.text_reloj);
+        textRecordatorios = root.findViewById(R.id.text_recordatorios);
+        progressBar = root.findViewById(R.id.progressBar);
+
+        // Observa el LiveData de recordatorios y actualiza la interfaz
+        homeViewModel.getRecordatorios().observe(getViewLifecycleOwner(), recordatorioResponse -> {
+            if (recordatorioResponse != null) {
+                // Muestra los datos en el TextView
+                textRecordatorios.setText(recordatorioResponse.toString());
+            } else {
+                textRecordatorios.setText("No se encontraron recordatorios.");
+            }
+        });
+
+        // Observa el estado de carga para mostrar u ocultar el ProgressBar
+        homeViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading != null) {
+                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        // Configura el botón para iniciar la llamada a la API al hacer clic
+        buttonProgramarNotificacion = root.findViewById(R.id.api_recordatorio);
+        buttonProgramarNotificacion.setOnClickListener(v -> {
+            Log.i("btn_flutter_fragment","Llamada a API desde botón...");
+            homeViewModel.fetchRecordatorios("16");
+        });
+
+        // Botón de llamada a la API directa
         buttonProgramarNotificacion = root.findViewById(R.id.btn_flutter_fragment);
+        buttonProgramarNotificacion.setOnClickListener(v -> mostrarFlutterFullFragmentActivity());
 
-
-        buttonProgramarNotificacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("btn_flutter_fragment","Ir a flutter fragment....");
-                mostrarFlutterFullFragmentActivity();
-            }
-        });
-
-        buttonProgramarNotificacion = root.findViewById(R.id.Llamada);
-        buttonProgramarNotificacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              realizarLlamadaApi();  // Llama al método que hace la llamada a la API
-            }
-        });
-
+        // Botón para programar notificación
         buttonProgramarNotificacion = root.findViewById(R.id.button_programar_notificacion);
-        buttonProgramarNotificacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarDatePicker();
-            }
-        });
-        // Configura el Runnable para actualizar la hora cada segundo
-        actualizarRelojRunnable = new Runnable() {
-            @Override
-            public void run() {
-                actualizarHora();
-                relojHandler.postDelayed(this, 1000); // Actualiza cada segundo
-            }
-        };
+        buttonProgramarNotificacion.setOnClickListener(v -> mostrarDatePicker());
 
-        // Inicia la actualización del reloj
+        // Configuración del reloj en tiempo real
+        actualizarRelojRunnable = () -> {
+            actualizarHora();
+            relojHandler.postDelayed(actualizarRelojRunnable, 1000); // Actualiza cada segundo
+        };
         relojHandler.post(actualizarRelojRunnable);
+
         return root;
     }
 
