@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Configuración para permitir tráfico sin cifrar hacia el servidor local -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.100.5</domain>
+    </domain-config>
+
+    <!-- Configuración para permitir tráfico sin cifrar hacia el servidor en la web -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">45.33.13.164</domain>
+    </domain-config>
+</network-security-config>

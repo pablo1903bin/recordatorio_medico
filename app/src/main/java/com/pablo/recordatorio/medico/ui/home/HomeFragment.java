@@ -22,9 +22,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.pablo.recordatorio.medico.NotificationScheduler;
 import com.pablo.recordatorio.medico.R;
+import com.pablo.recordatorio.medico.data.model.Recordatorio.Recordatorio;
+import com.pablo.recordatorio.medico.data.model.Recordatorio.RecordatorioResponse;
 import com.pablo.recordatorio.medico.databinding.FragmentHomeBinding;
+import com.pablo.recordatorio.medico.network.RecordatorioApiClient;
 import com.pablo.recordatorio.medico.ui.flutterfragments.FlutterFullFragmentActivity;
 import com.pablo.recordatorio.medico.ui.flutterfragments.alarma.AlarmaFlutterFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private Button buttonProgramarNotificacion;
@@ -50,6 +57,15 @@ public class HomeFragment extends Fragment {
                 mostrarFlutterFullFragmentActivity();
             }
         });
+
+        buttonProgramarNotificacion = root.findViewById(R.id.Llamada);
+        buttonProgramarNotificacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              realizarLlamadaApi();  // Llama al método que hace la llamada a la API
+            }
+        });
+
         buttonProgramarNotificacion = root.findViewById(R.id.button_programar_notificacion);
         buttonProgramarNotificacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +92,36 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+    private void realizarLlamadaApi() {
+        Log.i("Llamda","Llamando a mi API...");
+        RecordatorioApiClient.RecordatorioService service = RecordatorioApiClient.getInstance().getRecordatorioService();
+
+        Call<RecordatorioResponse> call = service.getRecordatorios("16");
+        call.enqueue(new Callback<RecordatorioResponse>() {
+            @Override
+            public void onResponse(Call<RecordatorioResponse> call, Response<RecordatorioResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    RecordatorioResponse recordatorioResponse = response.body();
+                    Log.d("API_RESPONSE", "Respuesta completa: " + recordatorioResponse.toString());
+
+                    // Itera sobre cada recordatorio en data y muestra sus detalles en el log
+                    for (Recordatorio recordatorio : recordatorioResponse.getData()) {
+                        Log.d("API_RESPONSE", "Detalle Recordatorio: " + recordatorio.toString());
+                    }
+                } else {
+                    Log.e("API_RESPONSE", "Error: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RecordatorioResponse> call, Throwable t) {
+                Log.e("API_RESPONSE", "Fallo en la llamada a la API", t);
+            }
+        });
+    }
+
 
     private void mostrarFlutterFullFragmentActivity() {
         Log.i("mostrarFlutterFullFragmentActivity","Cargar el FlutterFullFragmentActivity....");
