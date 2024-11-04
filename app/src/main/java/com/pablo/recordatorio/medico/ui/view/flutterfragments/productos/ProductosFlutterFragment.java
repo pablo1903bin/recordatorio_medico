@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pablo.recordatorio.medico.bridgeflutter.PabloFlutterFragment;
 
-
+//Este es un cambio de proeuba desde android studio...
 public class ProductosFlutterFragment extends PabloFlutterFragment {
 
     // Método para crear una instancia de este fragmento con la ruta de la pantalla de Flutter que quieres cargar
