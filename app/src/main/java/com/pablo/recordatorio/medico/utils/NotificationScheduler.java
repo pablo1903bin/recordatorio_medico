@@ -1,4 +1,4 @@
-package com.pablo.recordatorio.medico;
+package com.pablo.recordatorio.medico.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

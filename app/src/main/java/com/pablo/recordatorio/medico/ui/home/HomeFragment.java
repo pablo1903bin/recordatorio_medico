@@ -20,10 +20,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.pablo.recordatorio.medico.NotificationScheduler;
+import com.pablo.recordatorio.medico.utils.NotificationScheduler;
 import com.pablo.recordatorio.medico.R;
 import com.pablo.recordatorio.medico.data.model.Recordatorio.Recordatorio;
 import com.pablo.recordatorio.medico.data.model.Recordatorio.RecordatorioResponse;

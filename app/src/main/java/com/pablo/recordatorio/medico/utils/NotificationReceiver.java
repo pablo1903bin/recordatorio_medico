@@ -1,20 +1,16 @@
-package com.pablo.recordatorio.medico;
+package com.pablo.recordatorio.medico.utils;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
 import android.net.Uri;
-import android.media.RingtoneManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
-import androidx.core.app.NotificationCompat;
+import com.pablo.recordatorio.medico.MainActivity;
+import com.pablo.recordatorio.medico.R;
 
 public class NotificationReceiver extends BroadcastReceiver {
     // ID del canal de notificación, se usará para identificar el canal de notificación de medicamentos

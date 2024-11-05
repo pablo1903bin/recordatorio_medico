@@ -16,7 +16,7 @@ import com.pablo.recordatorio.medico.R;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 
-import com.pablo.recordatorio.medico.NotificationScheduler;
+import com.pablo.recordatorio.medico.utils.NotificationScheduler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

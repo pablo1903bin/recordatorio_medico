@@ -35,11 +35,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecordatorioMedico"
         tools:targetApi="34">
-        <receiver android:name=".NotificationReceiver" android:exported="false"/>
 
+        <receiver android:name=".utils.NotificationReceiver" android:exported="false"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.intro.Activity_intro"
             android:exported="true"
             android:label=""
             android:theme="@style/Theme.RecordatorioMedico.NoActionBar">
@@ -49,8 +49,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Agregar más actividades aquí -->
+        <activity
+            android:name="MainActivity"
+            android:label="Home"
+            android:exported="true"
+            android:theme="@style/Theme.RecordatorioMedico.NoActionBar" />
         <activity android:name="com.pablo.recordatorio.medico.ui.flutterfragments.FlutterFullFragmentActivity"/>
-        <activity android:name=".Activity_intro"/>
+
     </application>
 
 </manifest>
