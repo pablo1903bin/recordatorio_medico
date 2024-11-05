@@ -42,7 +42,7 @@
             android:name=".ui.intro.Activity_intro"
             android:exported="true"
             android:label=""
-            android:theme="@style/Theme.RecordatorioMedico.NoActionBar">
+            android:theme="@style/Theme.RecordatorioMedico">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

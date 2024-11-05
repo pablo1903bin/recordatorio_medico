@@ -58,6 +58,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.13.0") // La versión puede variar
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0") // Para la generación de código
 
+    implementation("com.google.android.material:material:1.4.0")
+
     debugImplementation("com.example.my_flutter_module:flutter_debug:1.0.7")
     releaseImplementation("com.example.my_flutter_module:flutter_debug:1.0.7")
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")

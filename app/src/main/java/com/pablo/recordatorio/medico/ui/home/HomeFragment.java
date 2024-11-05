@@ -53,50 +53,6 @@ public class HomeFragment extends Fragment {
         // Inicializar el objeto Calendar
         calendar = Calendar.getInstance();
 
-        // Inicializar los elementos de la UI
-        textReloj = root.findViewById(R.id.text_reloj);
-        textRecordatorios = root.findViewById(R.id.text_recordatorios);
-        progressBar = root.findViewById(R.id.progressBar);
-
-        // Observa el LiveData de recordatorios y actualiza la interfaz
-        homeViewModel.getRecordatorios().observe(getViewLifecycleOwner(), recordatorioResponse -> {
-            if (recordatorioResponse != null) {
-                // Muestra los datos en el TextView
-                textRecordatorios.setText(recordatorioResponse.toString());
-            } else {
-                textRecordatorios.setText("No se encontraron recordatorios.");
-            }
-        });
-
-        // Observa el estado de carga para mostrar u ocultar el ProgressBar
-        homeViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if (isLoading != null) {
-                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        // Configura el botón para iniciar la llamada a la API al hacer clic
-        buttonProgramarNotificacion = root.findViewById(R.id.api_recordatorio);
-        buttonProgramarNotificacion.setOnClickListener(v -> {
-            Log.i("btn_flutter_fragment","Llamada a API desde botón...");
-            homeViewModel.fetchRecordatorios("16");
-        });
-
-        // Botón de llamada a la API directa
-        buttonProgramarNotificacion = root.findViewById(R.id.btn_flutter_fragment);
-        buttonProgramarNotificacion.setOnClickListener(v -> mostrarFlutterFullFragmentActivity());
-
-        // Botón para programar notificación
-        buttonProgramarNotificacion = root.findViewById(R.id.button_programar_notificacion);
-        buttonProgramarNotificacion.setOnClickListener(v -> mostrarDatePicker());
-
-        // Configuración del reloj en tiempo real
-        actualizarRelojRunnable = () -> {
-            actualizarHora();
-            relojHandler.postDelayed(actualizarRelojRunnable, 1000); // Actualiza cada segundo
-        };
-        relojHandler.post(actualizarRelojRunnable);
-
         return root;
     }
 
