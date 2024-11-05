@@ -16,20 +16,8 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class PabloFlutterFragment extends FlutterFragment {
-
-    // Instancia de PabloChannel para la comunicación entre Flutter y Android
     private PabloChannel canal;
 
-    /**
-     * Método estático para crear una nueva instancia de `PabloFlutterFragment`.
-     * Recibe una clase (`clase`) y una ruta específica (`ruta`) para inicializar el fragmento.
-     * Aquí se utiliza `NewEngineFragmentBuilder` para crear un nuevo motor y asociarlo
-     * con la ruta inicial y el punto de entrada de Flutter.
-     *
-     * @param clase La clase de fragmento que se va a crear (heredando de FlutterFragment).
-     * @param ruta  La ruta inicial que cargará Flutter cuando se inicie este fragmento.
-     * @return Un nuevo fragmento con el motor configurado.
-     */
     public static Fragment newInstance(Class<? extends FlutterFragment> clase, String ruta) {
         Log.d("PabloFlutterFragment_newInstannce()", "Se esta construyendo una nueva instancia del motor de flutter para mostrar mi fragment...");
         return new NewEngineFragmentBuilder(clase)
@@ -39,13 +27,6 @@ public class PabloFlutterFragment extends FlutterFragment {
                 .build();
     }
 
-    /**
-     * Método `configureFlutterEngine` que se llama para configurar el `FlutterEngine`.
-     * Registra los plugins de Flutter y configura el canal de comunicación con `PabloChannel`.
-     * Este método se llama cada vez que el motor de Flutter necesita configurarse para una instancia del fragmento.
-     *
-     * @param flutterEngine El motor de Flutter que se va a configurar.
-     */
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);

@@ -1,4 +1,4 @@
-package com.pablo.recordatorio.medico;
+package com.pablo.recordatorio.medico.ui.intro;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,7 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-import com.pablo.recordatorio.medico.ui.view.flutterfragments.splash.SplashFlutterFragment;
+import com.pablo.recordatorio.medico.MainActivity;
+import com.pablo.recordatorio.medico.R;
 
 public class Activity_intro extends AppCompatActivity {
 
@@ -46,7 +47,6 @@ public class Activity_intro extends AppCompatActivity {
             }
         });
     }
-
 
     private void mostrarInicio() {
         Intent intent = new Intent(this, MainActivity.class);
